@@ -81,3 +81,14 @@ $routes->group('perkuliahan', static function ($routes) {
     $routes->get('delete/(:any)', 'Perkuliahan::delete/$1');
 });
 
+// Pertemuan 6 Session & Security
+$routes->group('login', static function ($routes) {
+    $routes->get('', 'Login::index');
+    $routes->post('auth', 'Login::auth');
+    $routes->get('logout', 'Login::logout');
+});
+
+$routes->group('register', static function ($routes) {
+    $routes->get('', 'Register::index');
+    $routes->post('save', 'Register::save');
+});
