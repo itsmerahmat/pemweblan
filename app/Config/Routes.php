@@ -41,3 +41,8 @@ $routes->group('form', static function ($routes) {
     $routes->get('', 'Mahasiswa::tugas');
     $routes->post('save', 'Mahasiswa::saveLatihan');
 });
+
+// Pertemuan 4 CSS Framework
+$routes->group('admin', static function ($routes) {
+    $routes->get('dashboard', 'Admin::index');
+});
