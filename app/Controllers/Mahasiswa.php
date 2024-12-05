@@ -123,7 +123,6 @@ class Mahasiswa extends BaseController
     public function tambah()
     {
         helper(['form']);
-        $model = new MahasiswaModel();
         $data = [
             'title' => 'Form Mahasiswa',
             // 'content' => 'v_mahasiswa',

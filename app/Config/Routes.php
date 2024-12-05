@@ -56,4 +56,28 @@ $routes->group('mahasiswa', static function ($routes) {
     $routes->post('update', 'Mahasiswa::update');
     $routes->get('delete/(:any)', 'Mahasiswa::delete/$1');
 });
+$routes->group('dosen', static function ($routes) {
+    $routes->get('', 'Dosen::index');
+    $routes->get('tambah', 'Dosen::tambah');
+    $routes->get('edit/(:any)', 'Dosen::edit/$1');
+    $routes->post('submit', 'Dosen::submit');
+    $routes->post('update', 'Dosen::update');
+    $routes->get('delete/(:any)', 'Dosen::delete/$1');
+});
+$routes->group('matakuliah', static function ($routes) {
+    $routes->get('', 'MataKuliah::index');
+    $routes->get('tambah', 'MataKuliah::tambah');
+    $routes->get('edit/(:any)', 'MataKuliah::edit/$1');
+    $routes->post('submit', 'MataKuliah::submit');
+    $routes->post('update', 'MataKuliah::update');
+    $routes->get('delete/(:any)', 'MataKuliah::delete/$1');
+});
+$routes->group('perkuliahan', static function ($routes) {
+    $routes->get('', 'Perkuliahan::index');
+    $routes->get('tambah', 'Perkuliahan::tambah');
+    $routes->get('edit/(:any)', 'Perkuliahan::edit/$1');
+    $routes->post('submit', 'Perkuliahan::submit');
+    $routes->post('update', 'Perkuliahan::update');
+    $routes->get('delete/(:any)', 'Perkuliahan::delete/$1');
+});
 

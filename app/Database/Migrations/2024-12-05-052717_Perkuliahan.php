@@ -9,6 +9,11 @@ class Perkuliahan extends Migration
     public function up()
     {
         $this->forge->addField([
+            'Id' => [
+                'type' => 'INT',
+                'auto_increment' => true,
+                'null' => false,
+            ],
             'Nim' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 18,
@@ -29,9 +34,7 @@ class Perkuliahan extends Migration
             'updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
         ]);
         
-        $this->forge->addKey('Nim', true);
-        $this->forge->addKey('Kode_MK', true);
-        $this->forge->addKey('Nip', true);
+        $this->forge->addKey('Id', true);
         $this->forge->addForeignKey('Nim', 'mahasiswa', 'Nim');
         $this->forge->addForeignKey('Kode_MK', 'matakuliah', 'Kode_MK');
         $this->forge->addForeignKey('Nip', 'dosen', 'Nip');
