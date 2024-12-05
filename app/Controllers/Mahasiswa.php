@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\MahasiswaModel;
+
 class Mahasiswa extends BaseController
 {
     public function index()
@@ -105,5 +107,95 @@ class Mahasiswa extends BaseController
         } else {
             return redirect()->back()->withInput()->with('validation', $validation);
         }
+    }
+
+    public function show()
+    {
+        $model = new MahasiswaModel();
+        $data = [
+            'title' => 'Mahasiswa',
+            // 'content' => 'v_mahasiswa',
+            'getData' => $model->getAllData()
+        ];
+        return view('mahasiswa/v_mahasiswa', $data);
+    }
+
+    public function tambah()
+    {
+        helper(['form']);
+        $model = new MahasiswaModel();
+        $data = [
+            'title' => 'Form Mahasiswa',
+            // 'content' => 'v_mahasiswa',
+        ];
+        return view('mahasiswa/v_mahasiswa_add', $data);
+    }
+
+    public function edit($id)
+    {
+        helper(['form']);
+        $model = new MahasiswaModel();
+        $data = [
+            'title' => 'Ubah Mahasiswa',
+            // 'content' => 'v_mahasiswa_formedit',
+            'getData' => $model->getDataById($id)
+        ];
+        return view('mahasiswa/v_mahasiswa_edit', $data);
+    }
+
+    public function submit()
+    {
+        $data = array(
+            'Nim' => $this->request->getPost('nim'),
+            'Nama_Mhs' => $this->request->getPost('nama_mhs'),
+            'Tgl_Lahir' => $this->request->getPost('tgl_lahir'),
+            'Alamat' => $this->request->getPost('alamat'),
+            'Jenis_Kelamin' => $this->request->getPost('jenis_kelamin')
+        );
+
+        $model = new MahasiswaModel();
+        $result = $model->insertData($data);
+        if ($result)
+            return redirect()->to('mahasiswa');
+        else
+            echo "Data gagal disimpan.";
+    }
+
+    public function update()
+    {
+        $model = new MahasiswaModel();
+        $nim = $this->request->getPost('nim');
+        $data = array(
+            'Nama_Mhs' => $this->request->getPost('nama_mhs'),
+            'Tgl_Lahir' => $this->request->getPost('tgl_lahir'),
+            'Alamat' => $this->request->getPost('alamat'),
+            'Jenis_Kelamin' => $this->request->getPost('jenis_kelamin')
+        );
+
+        $result = $model->updateData($nim, $data);
+        if ($result)
+            return redirect()->to('mahasiswa');
+        else
+            echo "Data gagal diubah.";
+    }
+
+    public function delete($id)
+    {
+        $model = new MahasiswaModel();
+        $result = $model->deleteData($id);
+        if ($result)
+            return redirect()->to('mahasiswa');
+        else
+            echo "Data gagal dihapus.";
+    }
+
+    function getJoinData()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('mahasiswa m');
+        $builder->select('m.nim, m.nama_mhs, mk.nama_mk');
+        $builder->join('perkuliahan p', 'p.nim=m.nim');
+        $builder->join('matakuliah mk', 'mk.kode_mk=p.kode_mk');
+        return $builder->get()->getResult();
     }
 }

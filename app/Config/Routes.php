@@ -46,3 +46,14 @@ $routes->group('form', static function ($routes) {
 $routes->group('admin', static function ($routes) {
     $routes->get('dashboard', 'Admin::index');
 });
+
+// Pertemuan 5 Operasi Database
+$routes->group('mahasiswa', static function ($routes) {
+    $routes->get('', 'Mahasiswa::show');
+    $routes->get('tambah', 'Mahasiswa::tambah');
+    $routes->get('edit/(:any)', 'Mahasiswa::edit/$1');
+    $routes->post('submit', 'Mahasiswa::submit');
+    $routes->post('update', 'Mahasiswa::update');
+    $routes->get('delete/(:any)', 'Mahasiswa::delete/$1');
+});
+
