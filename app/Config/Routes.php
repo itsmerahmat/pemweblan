@@ -87,8 +87,18 @@ $routes->group('login', static function ($routes) {
     $routes->post('auth', 'Login::auth');
     $routes->get('logout', 'Login::logout');
 });
-
 $routes->group('register', static function ($routes) {
     $routes->get('', 'Register::index');
     $routes->post('save', 'Register::save');
+});
+$routes->group('pengguna', ['filter' => 'role:admin'], static function ($routes) {
+    $routes->get('', 'Pengguna::index');
+    $routes->get('tambah', 'Pengguna::tambah');
+    $routes->get('edit/(:any)', 'Pengguna::edit/$1');
+    $routes->post('submit', 'Pengguna::submit');
+    $routes->post('update', 'Pengguna::update');
+    $routes->get('delete/(:any)', 'Pengguna::delete/$1');
+});
+$routes->get('unauthorized', function() {
+    return view('unauthorized');
 });

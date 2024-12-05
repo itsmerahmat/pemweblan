@@ -23,6 +23,8 @@ class Login extends BaseController
         if ($data) {
             $sessdata = [
                 'username' => $data->username,
+                'nama' => $data->nama,
+                'role' => $data->role,
                 'logged_in' => TRUE
             ];
             $session->set($sessdata);
